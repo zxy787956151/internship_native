@@ -6,9 +6,10 @@
 			@define('__PUBLIC__','/Admin/Public');
   			@define('__VIEW__','/Admin/View');
   			@define('__Controller__','/Admin/Controller');
-  		// 	if (!isset($_SESSION['user_id'])) {
-				// include dirname(dirname(__FILE__)).'\View\login.html';
-  		// 	}
+  			if (!isset($_SESSION['user_id'])) {
+				//include包含为什么时候用到什么时候读取!
+				include dirname(dirname(__FILE__)).'\View\login.html';
+  			}
 		}
 	}
  ?>

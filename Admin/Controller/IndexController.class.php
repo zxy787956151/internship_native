@@ -2,7 +2,6 @@
 	include_once 'BaseController.class.php';
 	class Index extends Base{
 		public function source(){
-			$base = new Base();
 			include dirname(dirname(__FILE__)).'\View\index.html';
 		}
 

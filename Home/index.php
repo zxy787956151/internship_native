@@ -7,12 +7,12 @@ if (!isset($_GET['c'])) {
 }
 define('MODULE_DIR', './Controller');
 $APP_PATH= str_replace($_SERVER['DOCUMENT_ROOT'], '', __FILE__);    
-$SE_STRING=str_replace($APP_PATH, '', $_SERVER['REQUEST_URI']);    //计算出index.php后面的字段 index.php/Controller/methon/id/3
+$SE_STRING=str_replace($APP_PATH, '', $_SERVER['REQUEST_URI']);    //计算出index.php后面的字段 index.php/controller/methon/id/3
 $SE_STRING=trim($SE_STRING,'/');
 //echo $SE_STRING.'<br>';
 //这里需要对$SE_STRING进行过滤处理。
 $ary_url=array(
-    'Controller'=>@$_GET['c'],
+    'controller'=>@$_GET['c'],
     'method'=>@$_GET['f'],
     'pramers'=>@$_GET['p']
     );
@@ -21,9 +21,9 @@ $ary_se=explode('/', $SE_STRING);
 $se_count=count($ary_se);
 //路由控制
 // if($se_count==1 and $ary_se[0]!='' ){
-//     $ary_url['Controller']=$ary_se[0];
+//     $ary_url['controller']=$ary_se[0];
 // }else if($se_count>1){//计算后面的参数，key-value
-//     $ary_url['Controller']=$ary_se[1];
+//     $ary_url['controller']=$ary_se[1];
 //     $ary_url['method']=$ary_se[1];
 //     if($se_count>2 and $se_count%2!=0){ //没有形成key-value形式
 //         die('参数错误');
@@ -35,7 +35,7 @@ $se_count=count($ary_se);
 //     }
 // }
 
-$module_name=$ary_url['Controller'];
+$module_name=$ary_url['controller'];
 $module_file=MODULE_DIR.'/'.@$_GET['c'].'Controller.class.php';
 //echo $module_file;
 $method_name=$ary_url['method'];
@@ -43,8 +43,7 @@ if(file_exists($module_file)){
     include($module_file);
     $obj_module=new $module_name();    //实例化模块m
     if(!method_exists($obj_module, $method_name)){
-        // die('方法不存在');
-        //暂时关闭,方法不存在时我想执行的是构造方法!!
+        die('方法不存在');
     }else{
         if(is_callable(array($obj_module, $method_name))){    //该方法是否能被调用
             //var_dump($ary_url[pramers]);
