@@ -3,8 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<script language="JavaScript" src="js/jquery.js"></script>
+<link href="<?php echo __PUBLIC__;?>/css/style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" src="<?php echo __PUBLIC__;?>/js/jquery.js"></script>
 
 <script type="text/javascript">
 $(function(){	
@@ -36,11 +36,11 @@ $(function(){
         
     <dd>
     <div class="title">
-    <span><img src="images/leftico01.png" /></span>管理信息
+    <span><img src="<?php echo __PUBLIC__;?>/images/leftico01.png" /></span>管理信息
     </div>
     	<ul class="menuson">
-        <li><cite></cite><a href="main.html" target="rightFrame">首页模版</a><i></i></li>
-        <li class="active"><cite></cite><a href="right.html" target="rightFrame">数据列表</a><i></i></li>
+        <li><cite></cite><a href="/Admin/index.php?c=Index&f=show&p=main" target="rightFrame">首页模版</a><i></i></li>
+        <li class="active"><cite></cite><a href="/Admin/index.php?c=Index&f=show&p=right" target="rightFrame">数据列表</a><i></i></li>
         <li><cite></cite><a href="imgtable.html" target="rightFrame">图片数据表</a><i></i></li>
         <li><cite></cite><a href="form.html" target="rightFrame">添加编辑</a><i></i></li>
         <li><cite></cite><a href="imglist.html" target="rightFrame">图片列表</a><i></i></li>
@@ -55,7 +55,7 @@ $(function(){
     
     <dd>
     <div class="title">
-    <span><img src="images/leftico02.png" /></span>其他设置
+    <span><img src="<?php echo __PUBLIC__;?>/images/leftico02.png" /></span>其他设置
     </div>
     <ul class="menuson">
         <li><cite></cite><a href="#">编辑内容</a><i></i></li>
@@ -65,7 +65,7 @@ $(function(){
     </dd> 
     
     
-    <dd><div class="title"><span><img src="images/leftico03.png" /></span>编辑器</div>
+    <dd><div class="title"><span><img src="<?php echo __PUBLIC__;?>/images/leftico03.png" /></span>编辑器</div>
     <ul class="menuson">
         <li><cite></cite><a href="#">自定义</a><i></i></li>
         <li><cite></cite><a href="#">常用资料</a><i></i></li>
@@ -75,7 +75,7 @@ $(function(){
     </dd>  
     
     
-    <dd><div class="title"><span><img src="images/leftico04.png" /></span>日期管理</div>
+    <dd><div class="title"><span><img src="<?php echo __PUBLIC__;?>/images/leftico04.png" /></span>日期管理</div>
     <ul class="menuson">
         <li><cite></cite><a href="#">自定义</a><i></i></li>
         <li><cite></cite><a href="#">常用资料</a><i></i></li>
