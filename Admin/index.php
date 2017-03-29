@@ -1,4 +1,5 @@
 <?php
+//各种路由跳转都要经过这里!
 session_start();
 if (!isset($_GET['c'])) {
     $_GET['c'] = 'Index';

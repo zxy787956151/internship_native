@@ -12,6 +12,22 @@
 			echo "</pre>";
 		}
 
+		public function I($name,$type="post"){
+		//默认post传值,U方法没写!
+			@session_start();
+			switch ($type) {
+				case 'post':
+					return $_POST["$name"];
+					break;
+				case 'get':
+					return $_GET["$name"];
+					break;
+				case 'ses':
+					return $_SESSION["$name"];
+					break;
+			}
+		}
+
 		
 	}
  ?>

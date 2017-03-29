@@ -28,20 +28,20 @@
 			return $result;
 		}
 
-		public function select($table,$where,$con){
-			$key = array_keys($where);
-			$condition = $key['0']."='".$where[$key['0']]."'";
-			for ($i=1; $i <count($where) ; $i++) { 
-				$condition .= " and ".$key['0']."='".$where[$key['0']]."'";
-			}
-			$sql = "SELECT * FROM ".$table." where(".$condition.");";
-			$result = mysql_query($sql);
-			$row = mysql_fetch_array($result);
-			if (!$result) {
-				return $result;
+		public function select($table,$con,$where=null){
+			if (isset($where)) {
+				$key = array_keys($where);
+				$condition = $key['0']."='".$where[$key['0']]."'";
+				for ($i=1; $i <count($where) ; $i++) { 
+					$condition .= " and ".$key['0']."='".$where[$key['0']]."'";
+				}
+				$sql = "SELECT * FROM ".$table." where(".$condition.");";
 			}else{
-				return $row;
+				$sql = "SELECT * FROM ".$table.";";
 			}
+			$result = mysql_query($sql);
+			return $result;
+			//直接返回result 不咋这里做mysql_fetch_array(),否则外面不能执行while!
 		}
 	}
  ?>
