@@ -23,7 +23,7 @@
 					return $_GET["$name"];
 					break;
 				case 'ses':
-					return $_SESSION["$name"];
+					return @$_SESSION["$name"];
 					break;
 			}
 		}

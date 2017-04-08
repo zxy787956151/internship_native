@@ -1,5 +1,6 @@
 <?php 
 	include_once 'BaseController.class.php';
+	//include_once耗内存
 	class Index extends Base{
 		public function source(){
 		//※※问题解决,这就是构造函数!!!※※

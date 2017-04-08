@@ -1,9 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-US">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
-<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="<?php echo __PUBLIC__;?>/css/style.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
@@ -19,15 +20,38 @@
     <div class="formbody">
     
     <div class="formtitle"><span>基本信息</span></div>
-    
-    <ul class="forminfo">
-    <li><label>文章标题</label><input name="" type="text" class="dfinput" /><i>标题不能超过30个字符</i></li>
-    <li><label>关键字</label><input name="" type="text" class="dfinput" /><i>多个关键字用,隔开</i></li>
-    <li><label>是否审核</label><cite><input name="" type="radio" value="" checked="checked" />是&nbsp;&nbsp;&nbsp;&nbsp;<input name="" type="radio" value="" />否</cite></li>
-    <li><label>引用地址</label><input name="" type="text" class="dfinput" value="http://www.uimaker.com/uimakerhtml/uidesign/" /></li>
-    <li><label>文章内容</label><textarea name="" cols="" rows="" class="textinput"></textarea></li>
-    <li><label>&nbsp;</label><input name="" type="button" class="btn" value="确认保存"/></li>
-    </ul>
+    <form enctype="multipart/form-data" method="post" action="/Admin/index.php?c=Article&f=add">
+        <ul class="forminfo">
+        <li><label>文章标题</label><input name="title" type="text" class="dfinput" /><i>标题不能超过30个字符</i></li>
+        <li><label>分类</label>
+            <select class="dfinput" name="classify">
+                <option>日记</option>
+                <option>程序人生</option>
+                <option>经典语录</option>
+            </select>
+        <i>多个关键字用,隔开</i></li>
+
+        <li><label>文章标题图</label><input name="myfile" type="file" class="dfinput" /><i>标题不能超过30个字符</i></li>
+        <li><label>是否审核</label><cite><input name="audit" type="radio" value="1" checked="checked" />是&nbsp;&nbsp;&nbsp;&nbsp;<input name="audit" type="radio" value="0" />否</cite></li>
+        <!-- <li><label>引用地址</label><input name="" type="text" class="dfinput" value="http://www.uimaker.com/uimakerhtml/uidesign/" /></li> -->
+        <li>
+            <label>文章内容</label>
+             <!-- 加载编辑器的容器 -->
+            <script id="container" name="content" type="text/plain" style="width:800px;height:200px">这里写你的文章内容!</script>
+            <!-- 文本编辑器里别留多余空格!,还是有,要字符串处理 -->
+            <!-- 配置文件 -->
+            <script type="text/javascript" src="<?php echo __PUBLIC__;?>/ueditor/ueditor.config.js"></script>
+            <!-- 编辑器源码文件 -->
+            <script type="text/javascript" src="<?php echo __PUBLIC__;?>/ueditor/ueditor.all.js"></script>
+            <!-- 实例化编辑器 -->
+            <script type="text/javascript">
+                var ue = UE.getEditor('container');
+            </script>
+        </li>
+        <li><label>&nbsp;</label><input name="submit" type="submit" class="btn" value="确认保存"/></li>
+        </ul>
+    </form>
+   
     
     
     </div>

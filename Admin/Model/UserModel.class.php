@@ -17,10 +17,10 @@
 							//BUG!!!这个错误内容明文一定要改成密文!,吧error.html里的图片也改了!!!,再设置几秒跳回来!!!
 						}
 					}else{
-						var_dump('密码错误或未填写!');
+						header("Location: ../Admin/index.php?c=Base&f=error&error=密码错误或未填写!");
 					}
 				}else{
-					var_dump('用户名错误或未填写!');
+					// header("Location: ../Admin/index.php?c=Base&f=error&error=用户名错误或未填写!");
 				}
 			}
 		}
