@@ -5,6 +5,14 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
 <link href="<?php echo __PUBLIC__;?>/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<?php echo __PUBLIC__;?>/js/jquery.js"></script>
+<script type="text/javascript" src="<?php echo __PUBLIC__;?>/js/addArticle.js"></script>
+<style type="text/css">
+    #image{
+        width: 300px;
+        height: 150px;
+    }
+</style>
 </head>
 
 <body>
@@ -31,7 +39,8 @@
             </select>
         <i>多个关键字用,隔开</i></li>
 
-        <li><label>文章标题图</label><input name="myfile" type="file" class="dfinput" /><i>标题不能超过30个字符</i></li>
+        <li><label>文章标题图</label><input name="myfile" type="file" class="dfinput" onchange="addProduct(this)" /><i>标题不能超过30个字符</i></li>
+        <li><img src="" id="image" /></li>
         <li><label>是否审核</label><cite><input name="audit" type="radio" value="1" checked="checked" />是&nbsp;&nbsp;&nbsp;&nbsp;<input name="audit" type="radio" value="0" />否</cite></li>
         <!-- <li><label>引用地址</label><input name="" type="text" class="dfinput" value="http://www.uimaker.com/uimakerhtml/uidesign/" /></li> -->
         <li>

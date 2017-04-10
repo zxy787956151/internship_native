@@ -7,6 +7,7 @@
 			while($row = mysql_fetch_array($sqlArr)){
 				//不需要键名的时候foreach冗余,用用while吧!
 				@session_start();
+				
 				if ($this->I('username') == $row['username']) {
 					if (md5($this->I('password')) == $row['password']) {
 						if ($this->I('verify') == $_SESSION['code']) {
@@ -20,7 +21,7 @@
 						header("Location: ../Admin/index.php?c=Base&f=error&error=密码错误或未填写!");
 					}
 				}else{
-					// header("Location: ../Admin/index.php?c=Base&f=error&error=用户名错误或未填写!");
+					header("Location: ../Admin/index.php?c=Base&f=error&error=用户名错误或未填写!");
 				}
 			}
 		}

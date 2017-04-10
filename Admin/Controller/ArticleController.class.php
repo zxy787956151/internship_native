@@ -41,10 +41,10 @@
 			        if(move_uploaded_file($uploaded_file,iconv("utf-8","gb2312",$move_to_file))) {  
 			            echo $_FILES['myfile']['name']."上传成功";  
 			        } else {  
-			            echo "上传失败";  
+				        header("Location: ../Admin/index.php?c=Base&f=error&error=标题图上传错误!&from=Article");
 			        }  
 			    } else {  
-			        echo "上传失败";  
+			        header("Location: ../Admin/index.php?c=Base&f=error&error=标题图上传错误!&from=Article");
 			    }  
 			}
 		}

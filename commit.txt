@@ -3,3 +3,4 @@ com17-3-28 MVCreform AdminUrlControlOK!
 com17-3-28 night AdminCommonDbMysqlConnitOk PackagingAdd,SelectOk!!
 com17-3-29 AdminUserModelLoginVerifyBug!
 com17-4-8 BugOk noBug Admin/ArticleAddCoding!
+com17-4-10 ArticleAddCoding mysqlConnectTypeMustBeChanged!

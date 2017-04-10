@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2017 年 03 月 28 日 13:37
+-- 生成日期: 2017 年 04 月 10 日 13:34
 -- 服务器版本: 5.5.53
 -- PHP 版本: 5.4.45
 
@@ -19,6 +19,25 @@ SET time_zone = "+00:00";
 --
 -- 数据库: `internship_native`
 --
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `article`
+--
+
+CREATE TABLE IF NOT EXISTS `article` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(50) DEFAULT NULL,
+  `classify` varchar(20) DEFAULT NULL,
+  `photourl` varchar(50) DEFAULT NULL,
+  `photoname` varchar(50) DEFAULT NULL,
+  `audit` int(11) DEFAULT '1',
+  `content` varchar(225) DEFAULT NULL,
+  `browse` int(11) DEFAULT '5231',
+  `discuss` int(11) DEFAULT '5360',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
