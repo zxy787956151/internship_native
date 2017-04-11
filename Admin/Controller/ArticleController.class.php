@@ -1,6 +1,8 @@
 <?php 
 	include_once 'BaseController.class.php';
+	include '../Common/Db_mysqli.php';
 	class Article extends Base{
+		use Db_mysqli;
 		public function source(){
 			$base = new Base();
 			$base->source();
@@ -20,7 +22,7 @@
 			    }  
 
 		     	$file_type=$_FILES['myfile']['type'];  
-				echo $file_type;  
+				// echo $file_type;  
 				//图片类型
 
 				//判断是否上传成功（是否使用post方式上传）  
@@ -39,12 +41,24 @@
 			        $move_to_file=$user_path."/".time().rand(1,1000).substr($file_true_name,strrpos($file_true_name,"."));  
 			        //echo "$uploaded_file   $move_to_file";  
 			        if(move_uploaded_file($uploaded_file,iconv("utf-8","gb2312",$move_to_file))) {  
-			            echo $_FILES['myfile']['name']."上传成功";  
-			        } else {  
-				        header("Location: ../Admin/index.php?c=Base&f=error&error=标题图上传错误!&from=Article");
+			        	$data = array(
+			        		'title' => $this->I('title'),
+			        		'classify' => $this->I('classify'),
+			        		'photourl' => $this->I('photourl'),
+			        		'photoname' => $this->I('photoname'),
+			        		'audit' => $this->I('audit'),
+			        		'content' => $this->I('content'),
+			        		);
+						$link = $this->db_mysqli('internship_native');
+						if ($judge = $this->i_add('Article',$data,$link)) {
+				        	header("Location: ../Admin/index.php?c=Article&f=source");
+						}
+
+			        }else {  
+				        header("Location: ../Admin/index.php?c=Base&f=error&error=标题图移动失败!&from=Article");
 			        }  
-			    } else {  
-			        header("Location: ../Admin/index.php?c=Base&f=error&error=标题图上传错误!&from=Article");
+			    }else {  
+			        header("Location: ../Admin/index.php?c=Base&f=error&error=标题图上传失败!&from=Article");
 			    }  
 			}
 		}

@@ -17,10 +17,10 @@
 			@session_start();
 			switch ($type) {
 				case 'post':
-					return $_POST["$name"];
+					return @$_POST["$name"];
 					break;
 				case 'get':
-					return $_GET["$name"];
+					return @$_GET["$name"];
 					break;
 				case 'ses':
 					return @$_SESSION["$name"];

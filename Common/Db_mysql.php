@@ -5,7 +5,7 @@
 			set_time_limit(0);
 			error_reporting( E_ALL&~E_NOTICE );
 			$con = mysql_connect("localhost","root","root");
-			if (!$con) {  die('Could not connect: ' . mysql_error());  }
+			if (!$con) {  die('噢 not connect: ' . mysql_error());  }
 			else{
 				mysql_select_db("$db", $con);
 				// echo '连接成功!';

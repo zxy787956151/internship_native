@@ -33,10 +33,17 @@
     
     <h2><?php echo $_GET['error']; ?></h2>
     <p>看到这个提示，就自认倒霉吧!</p>
-    <div class="reindex"><a href="/Admin/index.php?c=Index&f=source" target="_parent">返回首页</a></div>
-    
+    <div class="reindex">
+    <?php 
+        if(isset($_GET['from'])){
+            echo "<a href='/Admin/index.php?c=".$_GET['from']."&f=source' target='_parent'>";
+        }else{
+            echo "<a href='/Admin/index.php?c=Index&f=source' target='_parent'>";
+        }
+    ?>
+    <!-- 哪来的跳转回哪里 -->
+    返回首页</a></div>
     </div>
-
 
 </body>
 
