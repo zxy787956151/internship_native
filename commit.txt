@@ -5,3 +5,4 @@ com17-3-29 AdminUserModelLoginVerifyBug!
 com17-4-8 BugOk noBug Admin/ArticleAddCoding!
 com17-4-10 ArticleAddCoding mysqlConnectTypeMustBeChanged!
 com17-4-11 AdminLoginBigBug! ArticleAddCoding
+com17-4-12 afternoon also1BigBug ArticleSourcePageCoding!

@@ -34,6 +34,12 @@ $(document).ready(function(){
 
 });
 </script>
+<style type="text/css">
+    .artImg{
+        width: 80px;
+        height: 60px;
+    }
+</style>
 </head>
 
 
@@ -52,7 +58,7 @@ $(document).ready(function(){
     <div class="tools">
     
     	<ul class="toolbar">
-        <li><a href="/Admin/index.php?c=Index&f=show&p=form"><span><img src="<?php echo __PUBLIC__;?>/images/t01.png" /></span>添加</a></li>
+        <li><a href="/Admin/index.php?c=Article&f=add"><span><img src="<?php echo __PUBLIC__;?>/images/t01.png" /></span>添加</a></li>
         <!-- 想弹出确定框就加 class="click" -->
         <li class="click"><span><img src="<?php echo __PUBLIC__;?>/images/t02.png" /></span>修改</li>
         <li><span><img src="<?php echo __PUBLIC__;?>/images/t03.png" /></span>删除</li>
@@ -82,56 +88,32 @@ $(document).ready(function(){
     </thead>
     
     <tbody>
+    <!-- $i：分页计数 -->
+    <?php 
+        $i = 0;
+        while ($row = mysqli_fetch_assoc($result)){
+            if($i<4){
+                $judge = ($row['audit']==1) ? '已审核' : '<i>未审核</i>';
+                echo "
+                    <tr>
+                    <td class='imgtd'><img src='".__IMAGE__."/".$row['photourl']."/".$row['photoname']."' class='artImg' /></td>
+                    <td><a href='#'>".$row['title']."</a><p>发布时间：".$row['time']."</p></td>
+                    <td>".$row['classify']."<p>ID: ".$row['id']."</p></td>
+                    <td>开放浏览</td>
+                    <td>zxy</td>
+                    <td>".$judge."</td>
+                    <td>".$row['browse']."</td>
+                    </tr>   
+                ";
+                $i++;     
+            }else{
+                $i++;
+            }
+        }   
+    ?>
     
-    <tr>
-    <td class="imgtd"><img src="<?php echo __PUBLIC__;?>/images/img11.png" /></td>
-    <td><a href="#">非常不错的国外后台模板，支持HTML5</a><p>发布时间：2013-10-12 09:25:18</p></td>
-    <td>后台界面<p>ID: 82122</p></td>
-    <td>开放浏览</td>
-    <td>admin</td>
-    <td>已审核</td>
-    <td>128</td>
-    </tr>
     
-    <tr>
-    <td class="imgtd"><img src="<?php echo __PUBLIC__;?>/images/img12.png" /></td>
-    <td><a href="#">一套简约形状图标UI下载</a><p>发布时间：2013-10-12 09:25:18</p></td>
-    <td>图标设计<p>ID: 82122</p></td>
-    <td>开放浏览</td>
-    <td>uimaker</td>
-    <td><i>未审核</i></td>
-    <td>235</td>
-    </tr>
-    
-    <tr>
-    <td class="imgtd"><img src="<?php echo __PUBLIC__;?>/images/img13.png" /></td>
-    <td><a href="#">配色软件界面设计PSD下载</a><p>发布时间：2013-10-12 09:25:18</p></td>
-    <td>软件界面<p>ID: 82122</p></td>
-    <td>开放浏览</td>
-    <td>admin</td>
-    <td>已审核</td>
-    <td>100</td>
-    </tr>
-    
-    <tr>
-    <td class="imgtd"><img src="<?php echo __PUBLIC__;?>/images/img14.png" /></td>
-    <td><a href="#">uimaker.com分享-123张switch界面UI设计</a><p>发布时间：2013-10-12 09:25:18</p></td>
-    <td>图标设计<p>ID: 82122</p></td>
-    <td>开放浏览</td>
-    <td>user</td>
-    <td>已审核</td>
-    <td>96</td>
-    </tr>
-    
-    <tr>
-    <td class="imgtd"><img src="<?php echo __PUBLIC__;?>/images/img15.png" /></td>
-    <td><a href="#">章鱼图标PSD源文件下载</a><p>发布时间：2013-10-12 09:25:18</p></td>
-    <td>界面设计<p>ID: 82122</p></td>
-    <td>开放浏览</td>
-    <td>admin</td>
-    <td>已审核</td>
-    <td>45</td>
-    </tr>
+   
     
     </tbody>
     
@@ -143,11 +125,11 @@ $(document).ready(function(){
     
    
     <div class="pagin">
-    	<div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+    	<div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">1&nbsp;</i>页</div>
         <ul class="paginList">
         <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-        <li class="paginItem"><a href="javascript:;">1</a></li>
-        <li class="paginItem current"><a href="javascript:;">2</a></li>
+        <li class="paginItem current"><a href="javascript:;">1</a></li>
+        <li class="paginItem"><a href="javascript:;">2</a></li>
         <li class="paginItem"><a href="javascript:;">3</a></li>
         <li class="paginItem"><a href="javascript:;">4</a></li>
         <li class="paginItem"><a href="javascript:;">5</a></li>

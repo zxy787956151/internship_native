@@ -6,6 +6,7 @@
 			@define('__PUBLIC__','/Admin/Public');
   			@define('__VIEW__','/Admin/View');
   			@define('__Controller__','/Admin/Controller');
+  			@define('__IMAGE__','/Admin/Public/Upload');
 		}
 	}
  ?>

@@ -6,19 +6,35 @@
 		public function source(){
 			$base = new Base();
 			$base->source();
+			$link = $this->db_mysqli('internship_native');
+			$result = $this->i_select('Article',$link);
+			$num_rows = mysqli_num_rows ($result);
+			//ceil向上取整
+			$pageNum = ceil($num_rows/4);
 			include dirname(dirname(__FILE__)).'\View\imgtable.html';
 		}
 
 		public function add(){
+			$base = new Base();
+			$base->source();
+			//为模板添加样式!
+
 			if ($this->I('submit') == '确认保存') {
+				$title = $this->I('title');
+				if ($title == "") {
+					$url = "../Admin/index.php?c=Base&f=error&error=标题为空!&from=Article";
+					echo "<script language = 'javascript' type = 'text/javascript'>window.location.href = '".$url."';</script > ";
+					die();
+				}
 				ini_set('date.timezone','Asia/Shanghai');
 				//不设时区会报错不安全
 				$time = date('Y_m_d');
 
 				$file_size=$_FILES['myfile']['size'];  
 			    if($file_size>2*1024*1024) {  
-			        echo "文件过大，不能上传大于2M的文件";  
-			        exit();  
+			        $url = "../Admin/index.php?c=Base&f=error&error=图片超过2M!&from=Article";
+					echo "<script language = 'javascript' type = 'text/javascript'>window.location.href = '".$url."';</script > ";
+			        die();
 			    }  
 
 		     	$file_type=$_FILES['myfile']['type'];  
@@ -38,28 +54,38 @@
 			        }  
 			        //$move_to_file=$user_path."/".$_FILES['myfile']['name'];  
 			        $file_true_name=$_FILES['myfile']['name'];  
-			        $move_to_file=$user_path."/".time().rand(1,1000).substr($file_true_name,strrpos($file_true_name,"."));  
+			        $savePhotoName = time().rand(1,1000).substr($file_true_name,strrpos($file_true_name,"."));
+			        $move_to_file=$user_path."/".$savePhotoName;  
 			        //echo "$uploaded_file   $move_to_file";  
 			        if(move_uploaded_file($uploaded_file,iconv("utf-8","gb2312",$move_to_file))) {  
 			        	$data = array(
 			        		'title' => $this->I('title'),
 			        		'classify' => $this->I('classify'),
-			        		'photourl' => $this->I('photourl'),
-			        		'photoname' => $this->I('photoname'),
+			        		'photourl' => $time,
+			        		'photoname' => $savePhotoName,
 			        		'audit' => $this->I('audit'),
-			        		'content' => $this->I('content'),
+			        		'content' => strip_tags($this->I('content')),
+			        		'time' => date("Y-m-d H:i:s",time()),
 			        		);
 						$link = $this->db_mysqli('internship_native');
 						if ($judge = $this->i_add('Article',$data,$link)) {
-				        	header("Location: ../Admin/index.php?c=Article&f=source");
+				        	$url = "../Admin/index.php?c=Article&f=source";
+							echo "<script language = 'javascript' type = 'text/javascript'>window.location.href = '".$url."';</script > ";
+							die();
 						}
 
 			        }else {  
-				        header("Location: ../Admin/index.php?c=Base&f=error&error=标题图移动失败!&from=Article");
+				        $url = "../Admin/index.php?c=Base&f=error&error=标题图移动失败!&from=Article";
+						echo "<script language = 'javascript' type = 'text/javascript'>window.location.href = '".$url."';</script > ";
+						die();
 			        }  
 			    }else {  
-			        header("Location: ../Admin/index.php?c=Base&f=error&error=标题图上传失败!&from=Article");
+			        $url = "../Admin/index.php?c=Base&f=error&error=标题图上传失败!&from=Article";
+					echo "<script language = 'javascript' type = 'text/javascript'>window.location.href = '".$url."';</script > ";
+					die();
 			    }  
+			}else{
+				include dirname(dirname(__FILE__)).'\View\form.html';
 			}
 		}
 	}

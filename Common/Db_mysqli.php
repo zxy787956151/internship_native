@@ -86,6 +86,24 @@
 				$id = mysqli_insert_id($link);	
 				return $id;
 			}
+
+			public function i_select($table,$link,$where=null){
+				if (isset($where)) {
+					$key = array_keys($where);
+					$condition = $key['0']."='".$where[$key['0']]."'";
+					for ($i=1; $i <count($where) ; $i++) { 
+						$condition .= " and ".$key['0']."='".$where[$key['0']]."'";
+					}
+					$sql = "SELECT * FROM ".$table." where(".$condition.");";
+				}else{
+					$sql = "SELECT * FROM ".$table.";";
+				}
+
+				//普通查询，返回资源
+				$result  = mysqli_query($link,$sql);
+				return $result;
+				//就不返回结果集条数了!				
+			}
 	}
 		
  ?>
