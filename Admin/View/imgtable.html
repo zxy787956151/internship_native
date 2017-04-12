@@ -72,97 +72,130 @@ $(document).ready(function(){
     
     </div>
     
-    
-    <table class="imgtable">
-    
-    <thead>
-    <tr>
-    <th width="100px;">缩略图</th>
-    <th>标题</th>
-    <th>栏目</th>
-    <th>权限</th>
-    <th>发布人</th>
-    <th>是否审核</th>
-    <th>点击</th>
-    </tr>
-    </thead>
-    
-    <tbody>
-    <!-- $i：分页计数 -->
-    <?php 
-        $i = 0;
-        while ($row = mysqli_fetch_assoc($result)){
-            if($i<4){
-                $judge = ($row['audit']==1) ? '已审核' : '<i>未审核</i>';
-                echo "
-                    <tr>
-                    <td class='imgtd'><img src='".__IMAGE__."/".$row['photourl']."/".$row['photoname']."' class='artImg' /></td>
-                    <td><a href='#'>".$row['title']."</a><p>发布时间：".$row['time']."</p></td>
-                    <td>".$row['classify']."<p>ID: ".$row['id']."</p></td>
-                    <td>开放浏览</td>
-                    <td>zxy</td>
-                    <td>".$judge."</td>
-                    <td>".$row['browse']."</td>
-                    </tr>   
-                ";
-                $i++;     
-            }else{
-                $i++;
-            }
-        }   
-    ?>
-    
-    
-   
-    
-    </tbody>
-    
-    </table>
-    
-    
-    
-    
-    
-   
-    <div class="pagin">
-    	<div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">1&nbsp;</i>页</div>
-        <ul class="paginList">
-        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
-        <li class="paginItem current"><a href="javascript:;">1</a></li>
-        <li class="paginItem"><a href="javascript:;">2</a></li>
-        <li class="paginItem"><a href="javascript:;">3</a></li>
-        <li class="paginItem"><a href="javascript:;">4</a></li>
-        <li class="paginItem"><a href="javascript:;">5</a></li>
-        <li class="paginItem more"><a href="javascript:;">...</a></li>
-        <li class="paginItem"><a href="javascript:;">10</a></li>
-        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
-        </ul>
-    </div>
-    
-    
-    <div class="tip">
-    	<div class="tiptop"><span>提示信息</span><a></a></div>
+    <form action="/Admin/index.php?c=Article&f=update" method="post">
+        <table class="imgtable">
         
-      <div class="tipinfo">
-        <span><img src="<?php echo __PUBLIC__;?>/images/ticon.png" /></span>
-        <div class="tipright">
-        <p>是否确认对信息的修改 ？</p>
-        <cite>如果是请点击确定按钮 ，否则请点取消。</cite>
-        </div>
+        <thead>
+        <tr>
+        <th><input type="checkbox" name="checkbox"></th>
+        <th width="100px;">缩略图</th>
+        <th>标题</th>
+        <th>栏目</th>
+        <th>权限</th>
+        <th>发布人</th>
+        <th>是否审核</th>
+        <th>点击</th>
+        </tr>
+        </thead>
+        
+        <tbody>
+        <!-- $i：分页计数 -->
+        <?php 
+            $i = 1;
+            while ($row = mysqli_fetch_assoc($result)){
+                if($i>=$pageS && $i<=$pageE){
+                    $judge = ($row['audit']==1) ? '已审核' : '<i>未审核</i>';
+                    echo "
+                        <tr>
+                        <td><input type='checkbox' name='checkbox'></td>
+                        <td class='imgtd'><img src='".__IMAGE__."/".$row['photourl']."/".$row['photoname']."' class='artImg' /></td>
+                        <td><a href='#'>".$row['title']."</a><p>发布时间：".$row['time']."</p></td>
+                        <td>".$row['classify']."<p>ID: ".$row['id']."</p></td>
+                        <td>开放浏览</td>
+                        <td>zxy</td>
+                        <td>".$judge."</td>
+                        <td>".$row['browse']."</td>
+                        </tr>   
+                    ";
+                    $i++;     
+                }else{
+                    $i++;
+                }
+            }   
+        ?>
+        
+        
+       
+        
+        </tbody>
+        
+        </table>
+        
+        
+        
+        
+        
+       
+        <div class="pagin">
+        	<div class="message">共<i class="blue"><?php echo $num_rows;?></i>条记录，当前显示第&nbsp;<i class="blue"><?php echo $page;?>&nbsp;</i>页</div>
+            <ul class="paginList">
+            <?php
+                if($page!=1){
+                    echo "
+                        <li class='paginItem'><a href='/Admin/index.php?c=Article&f=source&pid=".($page-1)."'><span class='pagepre'></span></a></li>
+                    ";
+                }
+            ?>
+            
+            <li class="paginItem current"><a href="/Admin/index.php?c=Article&f=source&pid=1">1</a></li>
+            <?php 
+                if($pageNum>5){
+                    for($i=1;$i<5;$i++){
+                        echo "
+                            <li class='paginItem'><a href='/Admin/index.php?c=Article&f=source&pid=".($i+1)."'>".($i+1)."</a></li>
+                        ";
+                    }
+
+                    echo "
+                        <li class='paginItem more'><a href='javascript:;'>...</a></li>
+                        <li class='paginItem'><a href='javascript:;'>10</a></li>
+                    ";
+                }else{
+                    for($i=1;$i<$pageNum;$i++){
+                        echo "
+                            <li class='paginItem'><a href='/Admin/index.php?c=Article&f=source&pid=".($i+1)."'>".($i+1)."</a></li>
+                        ";
+                    }
+                }
+                
+            ?>
+           
+            <?php 
+                if($page==$pageNum){}else{
+                    echo "
+                       <li class='paginItem'><a href='/Admin/index.php?c=Article&f=source&pid=".($page+1)."'><span class='pagenxt'></span></a></li> 
+                    ";
+                }
+            ?>
+            
+            </ul>
         </div>
         
-        <div class="tipbtn">
-        <input name="" type="button"  class="sure" value="确定" />&nbsp;
-        <input name="" type="button"  class="cancel" value="取消" />
+        
+        <div class="tip">
+        	<div class="tiptop"><span>提示信息</span><a></a></div>
+            
+          <div class="tipinfo">
+            <span><img src="<?php echo __PUBLIC__;?>/images/ticon.png" /></span>
+            <div class="tipright">
+            <p>是否确认对信息的修改 ？</p>
+            <cite>如果是请点击确定按钮 ，否则请点取消。</cite>
+            </div>
+            </div>
+            
+            <div class="tipbtn">
+            <input name="submit" type="submit"  class="sure" value="确定" />&nbsp;
+            <input name="" type="button"  class="cancel" value="取消" />
+            </div>
+        
         </div>
-    
-    </div>
-    
+    </form>
     
     
     
     </div>
     
+    <!-- 不知为何,怀疑重复提示框代码 -->
     <div class="tip">
     	<div class="tiptop"><span>提示信息</span><a></a></div>
         

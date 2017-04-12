@@ -11,6 +11,18 @@
 			$num_rows = mysqli_num_rows ($result);
 			//ceil向上取整
 			$pageNum = ceil($num_rows/4);
+			$page = $this->I('pid','get');
+			//$this->I('page','get')返回的是一个值，直接判断就行没办法isset
+			if ($page!=NULL) {
+				//赋值同样也无法进行	
+				$pageE = 4*$page;
+				$pageS = $pageE - 3;
+			}else{
+				//强制记录一下当前是第几页
+				$page = 1;
+				$pageS = 1;
+				$pageE = 4;
+			}
 			include dirname(dirname(__FILE__)).'\View\imgtable.html';
 		}
 
@@ -87,6 +99,10 @@
 			}else{
 				include dirname(dirname(__FILE__)).'\View\form.html';
 			}
+		}
+
+		public function update(){
+			var_dump('11');
 		}
 	}
  ?>
