@@ -60,8 +60,8 @@ $(document).ready(function(){
     	<ul class="toolbar">
         <li><a href="/Admin/index.php?c=Article&f=add"><span><img src="<?php echo __PUBLIC__;?>/images/t01.png" /></span>添加</a></li>
         <!-- 想弹出确定框就加 class="click" -->
-        <li class="click"><span><img src="<?php echo __PUBLIC__;?>/images/t02.png" /></span>修改</li>
-        <li><span><img src="<?php echo __PUBLIC__;?>/images/t03.png" /></span>删除</li>
+        <!-- <li class="click"><span><img src="<?php echo __PUBLIC__;?>/images/t02.png" /></span>修改</li> -->
+        <li class='click'><span><img src="<?php echo __PUBLIC__;?>/images/t03.png" /></span>全部删除选中</li>
         <li><span><img src="<?php echo __PUBLIC__;?>/images/t04.png" /></span>统计</li>
         </ul>
         
@@ -77,7 +77,7 @@ $(document).ready(function(){
         
         <thead>
         <tr>
-        <th><input type="checkbox" name="checkbox"></th>
+        <th><input type="checkbox" name="checkbox[]">&nbsp;全选</th>
         <th width="100px;">缩略图</th>
         <th>标题</th>
         <th>栏目</th>
@@ -85,6 +85,7 @@ $(document).ready(function(){
         <th>发布人</th>
         <th>是否审核</th>
         <th>点击</th>
+        <th>操作</th>
         </tr>
         </thead>
         
@@ -97,7 +98,7 @@ $(document).ready(function(){
                     $judge = ($row['audit']==1) ? '已审核' : '<i>未审核</i>';
                     echo "
                         <tr>
-                        <td><input type='checkbox' name='checkbox'></td>
+                        <td><input type='checkbox' name='checkbox[]' value='".$row['id']."'></td>
                         <td class='imgtd'><img src='".__IMAGE__."/".$row['photourl']."/".$row['photoname']."' class='artImg' /></td>
                         <td><a href='#'>".$row['title']."</a><p>发布时间：".$row['time']."</p></td>
                         <td>".$row['classify']."<p>ID: ".$row['id']."</p></td>
@@ -105,6 +106,12 @@ $(document).ready(function(){
                         <td>zxy</td>
                         <td>".$judge."</td>
                         <td>".$row['browse']."</td>
+                        <td>
+                        <ul class='toolbar'>
+                                <li><a href='/Admin/index.php?c=Article&f=update&id=".$row['id']."'><span><img src='".__PUBLIC__."/images/t02.png' /></span>修改</li></a>
+        <li><span><img src='".__PUBLIC__."/images/t03.png' /></span>删除</li>
+                        </ul>
+                        </td>
                         </tr>   
                     ";
                     $i++;     
@@ -189,30 +196,30 @@ $(document).ready(function(){
             </div>
         
         </div>
+    
+    
+    
+        </div>
+    
+        <!-- 不知为何,怀疑重复提示框代码 -->
+        <div class="tip">
+        	<div class="tiptop"><span>提示信息</span><a></a></div>
+            
+          <div class="tipinfo">
+            <span><img src="<?php echo __PUBLIC__;?>/images/ticon.png" /></span>
+            <div class="tipright">
+            <p>是否确认对信息的修改 ？</p>
+            <cite>如果是请点击确定按钮 ，否则请点取消。</cite>
+            </div>
+            </div>
+            
+            <div class="tipbtn">
+            <input name="submit" type="submit"  class="sure" value="确定" />&nbsp;
+            <input name="" type="button"  class="cancel" value="取消" />
+            </div>
+        
+        </div>
     </form>
-    
-    
-    
-    </div>
-    
-    <!-- 不知为何,怀疑重复提示框代码 -->
-    <div class="tip">
-    	<div class="tiptop"><span>提示信息</span><a></a></div>
-        
-      <div class="tipinfo">
-        <span><img src="<?php echo __PUBLIC__;?>/images/ticon.png" /></span>
-        <div class="tipright">
-        <p>是否确认对信息的修改 ？</p>
-        <cite>如果是请点击确定按钮 ，否则请点取消。</cite>
-        </div>
-        </div>
-        
-        <div class="tipbtn">
-        <input name="" type="button"  class="sure" value="确定" />&nbsp;
-        <input name="" type="button"  class="cancel" value="取消" />
-        </div>
-    
-    </div>
     
 <script type="text/javascript">
 	$('.imgtable tbody tr:odd').addClass('odd');

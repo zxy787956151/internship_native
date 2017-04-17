@@ -7,6 +7,9 @@
 <link href="<?php echo __PUBLIC__;?>/css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<?php echo __PUBLIC__;?>/js/jquery.js"></script>
 <script type="text/javascript" src="<?php echo __PUBLIC__;?>/js/addArticle.js"></script>
+<script type="text/javascript" src="<?php echo __PUBLIC__;?>/ueditor/ueditor.config.js"></script>
+            <!-- 编辑器源码文件 -->
+<script type="text/javascript" src="<?php echo __PUBLIC__;?>/ueditor/ueditor.all.js"></script>
 <style type="text/css">
     #image{
         width: 300px;
@@ -28,37 +31,119 @@
     <div class="formbody">
     
     <div class="formtitle"><span>基本信息</span></div>
-    <form enctype="multipart/form-data" method="post" action="/Admin/index.php?c=Article&f=add">
-        <ul class="forminfo">
-        <li><label>文章标题</label><input name="title" type="text" class="dfinput" /><i>标题不能超过30个字符</i></li>
-        <li><label>分类</label>
-            <select class="dfinput" name="classify">
-                <option>日记</option>
-                <option>程序人生</option>
-                <option>经典语录</option>
-            </select>
-        <i>多个关键字用,隔开</i></li>
+    
 
-        <li><label>文章标题图</label><input name="myfile" type="file" class="dfinput" onchange="addProduct(this)" /><i>标题不能超过30个字符</i></li>
-        <li><img src="" id="image" /></li>
-        <li><label>是否审核</label><cite><input name="audit" type="radio" value="1" checked="checked" />是&nbsp;&nbsp;&nbsp;&nbsp;<input name="audit" type="radio" value="0" />否</cite></li>
-        <!-- <li><label>引用地址</label><input name="" type="text" class="dfinput" value="http://www.uimaker.com/uimakerhtml/uidesign/" /></li> -->
-        <li>
-            <label>文章内容</label>
-             <!-- 加载编辑器的容器 -->
-            <script id="container" name="content" type="text/plain" style="width:800px;height:200px">这里写你的文章内容!</script>
-            <!-- 文本编辑器里别留多余空格!,还是有,要字符串处理 -->
-            <!-- 配置文件 -->
-            <script type="text/javascript" src="<?php echo __PUBLIC__;?>/ueditor/ueditor.config.js"></script>
-            <!-- 编辑器源码文件 -->
-            <script type="text/javascript" src="<?php echo __PUBLIC__;?>/ueditor/ueditor.all.js"></script>
-            <!-- 实例化编辑器 -->
-            <script type="text/javascript">
-                var ue = UE.getEditor('container');
-            </script>
-        </li>
-        <li><label>&nbsp;</label><input name="submit" type="submit" class="btn" value="确认保存"/></li>
-        </ul>
+        <?php
+            if(!isset($result)){
+                echo "
+
+                <form enctype='multipart/form-data' method='post' action='/Admin/index.php?c=Article&f=art_add'>
+
+                    <ul class='forminfo'>
+                    <li><label>文章标题</label><input name='title' type='text' class='dfinput' /><i>标题不能超过30个字符</i></li>
+                    <li><label>分类</label>
+                        <select class='dfinput' name='classify'>
+                            <option>日记</option>
+                            <option>程序人生</option>
+                            <option>经典语录</option>
+                        </select>
+                    <i>多个关键字用,隔开</i></li>
+
+                    <li><label>文章标题图</label><input name='myfile' type='file' class='dfinput' onchange='addProduct(this)' /><i>标题不能超过30个字符</i></li>
+                    <li><img src='' id='image' /></li>
+                    <li><label>是否审核</label><cite><input name='audit' type='radio' value='1' checked='checked' />是&nbsp;&nbsp;&nbsp;&nbsp;<input name='audit' type='radio' value='0' />否</cite></li>
+                    <!-- <li><label>引用地址</label><input name=' type='text' class='dfinput' value='http://www.uimaker.com/uimakerhtml/uidesign/' /></li> -->
+                    <li>
+                        <label>文章内容</label>
+                         <!-- 加载编辑器的容器 -->
+                        <script id='container' name='content' type='text/plain' style='width:800px;height:200px'>这里写你的文章内容!</script>
+                        <!-- 文本编辑器里别留多余空格!,还是有,要字符串处理 -->
+                        <!-- 配置文件 -->
+                        <!-- 编辑器源码文件 -->
+                        <!-- 实例化编辑器 -->
+                        <script type='text/javascript'>
+                            var ue = UE.getEditor('container');
+                        </script>
+                    </li>
+                    <li><label>&nbsp;</label><input name='submit' type='submit' class='btn' value='确认保存'/></li>
+                    </ul>
+                ";
+            }else{
+                echo "
+                    <form enctype='multipart/form-data' method='post' action='/Admin/index.php?c=Article&f=art_update'>
+                ";
+                while($row = mysql_fetch_array($result)){
+                    echo "
+                        <ul class='forminfo'>
+                        <li><label>文章标题</label><input name='title' type='text' class='dfinput' value='".$row['title']."' /><i>标题不能超过30个字符</i></li>
+                        <li><label>分类</label>
+                            <select class='dfinput' name='classify'>";
+                                //处理一下下拉列表选中问题
+                                switch ($row['classify']) {
+                                    case '日记':
+                                        echo "
+                                            <option selected='selected'>日记</option>
+                                            <option>程序人生</option>
+                                            <option>经典语录</option>
+                                        ";
+                                        break;
+                                    case '程序人生':
+                                        echo "
+                                            <option>日记</option>
+                                            <option selected='selected'>程序人生</option>
+                                            <option>经典语录</option>
+                                        ";
+                                        break;
+                                    case '经典语录':
+                                        echo "
+                                            <option>日记</option>
+                                            <option>程序人生</option>
+                                            <option selected='selected'>经典语录</option>
+                                        ";
+                                        break;
+                                }
+                    echo "            
+                            </select>
+                        <i>多个关键字用,隔开</i></li>
+
+                        <li><label>文章标题图</label><input name='myfile' type='file' class='dfinput' onchange='addProduct(this)' /><i>标题不能超过30个字符</i></li>
+                        <li><img src='".__IMAGE__."/".$row['photourl']."/".$row['photoname']."' id='image' /></li>";
+
+                        //处理审核
+                        switch ($row['audit']) {
+                            case '1':
+                                echo "
+                                    <li><label>是否审核</label><cite><input name='audit' type='radio' value='1' checked='checked' />是&nbsp;&nbsp;&nbsp;&nbsp;<input name='audit' type='radio' value='0' />否</cite></li>
+                                ";
+                                break;
+
+                            case '0':
+                                echo "
+                                    <li><label>是否审核</label><cite><input name='audit' type='radio' value='1' />是&nbsp;&nbsp;&nbsp;&nbsp;<input name='audit' type='radio' value='0' checked='checked' />否</cite></li>
+                                ";
+                                break;
+                        }               
+                        
+                echo "        
+                        <li>
+                            <label>文章内容</label>
+                             <!-- 加载编辑器的容器 -->
+                            <script id='container' name='content' type='text/plain' style='width:800px;height:200px'>".$row['content']."</script>
+                            <!-- 文本编辑器里别留多余空格!,还是有,要字符串处理 -->
+                            <!-- 配置文件 -->
+                            <!-- 编辑器源码文件 -->
+                            <!-- 实例化编辑器 -->
+                            <script type='text/javascript'>
+                                var ue = UE.getEditor('container');
+                            </script>
+                        </li>
+                        <li><label>&nbsp;</label><input name='submit' type='submit' class='btn' value='确认保存'/></li>
+                        </ul>
+                    ";
+                }
+            }
+            
+        ?>
     </form>
    
     

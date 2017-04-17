@@ -43,5 +43,10 @@
 			return $result;
 			//直接返回result 不咋这里做mysql_fetch_array(),否则外面不能执行while!
 		}
+
+		public function update($table,$con,$data,$where){
+			//修改的条件不能为空
+			
+		}
 	}
  ?>
