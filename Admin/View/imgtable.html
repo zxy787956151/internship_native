@@ -72,7 +72,7 @@ $(document).ready(function(){
     
     </div>
     
-    <form action="/Admin/index.php?c=Article&f=update" method="post">
+    <form action="/Admin/index.php?c=Article&f=art_delete" method="post">
         <table class="imgtable">
         
         <thead>
@@ -83,7 +83,7 @@ $(document).ready(function(){
         <th>栏目</th>
         <th>权限</th>
         <th>发布人</th>
-        <th>是否审核</th>
+        <th>是否推荐</th>
         <th>点击</th>
         <th>操作</th>
         </tr>
@@ -108,8 +108,9 @@ $(document).ready(function(){
                         <td>".$row['browse']."</td>
                         <td>
                         <ul class='toolbar'>
-                                <li><a href='/Admin/index.php?c=Article&f=update&id=".$row['id']."'><span><img src='".__PUBLIC__."/images/t02.png' /></span>修改</li></a>
-        <li><span><img src='".__PUBLIC__."/images/t03.png' /></span>删除</li>
+                                <a href='/Admin/index.php?c=Article&f=art_update&id=".$row['id']."'><li><span><img src='".__PUBLIC__."/images/t02.png' /></span>修改</li></a>
+        
+                            <a href='/Admin/index.php?c=Article&f=art_delete&id=".$row['id']."'><li><span><img src='".__PUBLIC__."/images/t03.png' /></span>删除</li></a>
                         </ul>
                         </td>
                         </tr>   
@@ -208,7 +209,7 @@ $(document).ready(function(){
           <div class="tipinfo">
             <span><img src="<?php echo __PUBLIC__;?>/images/ticon.png" /></span>
             <div class="tipright">
-            <p>是否确认对信息的修改 ？</p>
+            <p>是否确认多项删除 ？</p>
             <cite>如果是请点击确定按钮 ，否则请点取消。</cite>
             </div>
             </div>

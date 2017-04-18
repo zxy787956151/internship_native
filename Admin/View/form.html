@@ -31,12 +31,10 @@
     <div class="formbody">
     
     <div class="formtitle"><span>基本信息</span></div>
-    
 
         <?php
             if(!isset($result)){
                 echo "
-
                 <form enctype='multipart/form-data' method='post' action='/Admin/index.php?c=Article&f=art_add'>
 
                     <ul class='forminfo'>
@@ -136,8 +134,13 @@
                             <script type='text/javascript'>
                                 var ue = UE.getEditor('container');
                             </script>
+                        </li>   
+                        <li>
+                            <label>&nbsp;</label>
+                            <input name='submit' type='submit' class='btn' value='确认保存'/>
+                            <input name='id' type='hidden' class='btn' value='".$_GET['id']."'/>
+
                         </li>
-                        <li><label>&nbsp;</label><input name='submit' type='submit' class='btn' value='确认保存'/></li>
                         </ul>
                     ";
                 }

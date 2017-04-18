@@ -107,7 +107,8 @@
 			$base = new Base();
 			$base->source();
 			$con = $this->db_mysql('internship_native');
-			$where['id'] = $this->I('id','get');
+			$where['id'] = $this->I('id');
+			$judge['issetImg'] = 0;
 
  			if ($this->I('submit') == '确认保存') {
 				$title = $this->I('title');
@@ -148,7 +149,8 @@
 			        $move_to_file=$user_path."/".$savePhotoName;  
 			        //echo "$uploaded_file   $move_to_file";  
 			        if(move_uploaded_file($uploaded_file,iconv("utf-8","gb2312",$move_to_file))) {  
-			        	$data = array(
+						$judge['issetImg'] = 1;	
+						$data = array(
 			        		'title' => $this->I('title'),
 			        		'classify' => $this->I('classify'),
 			        		'photourl' => $time,
@@ -157,30 +159,75 @@
 			        		'content' => strip_tags($this->I('content')),
 			        		'time' => date("Y-m-d H:i:s",time()),
 			        		);
-						$link = $this->db_mysqli('internship_native');
-						if ($judge = $this->update('Article',$con,$data,$where)) {
+						
+						
+						if ($judge = $this->update('Article',$con,$data,$where,$judge['issetImg'])) {
 				        	$url = "../Admin/index.php?c=Article&f=source";
 							echo "<script language = 'javascript' type = 'text/javascript'>window.location.href = '".$url."';</script > ";
 							die();
-						}
-
+						}		        	
 			        }else {  
 				        $url = "../Admin/index.php?c=Base&f=error&error=标题图移动失败!&from=Article";
 						echo "<script language = 'javascript' type = 'text/javascript'>window.location.href = '".$url."';</script > ";
 						die();
 			        }  
 			    }else {  
-			        $url = "../Admin/index.php?c=Base&f=error&error=标题图上传失败!&from=Article";
-					echo "<script language = 'javascript' type = 'text/javascript'>window.location.href = '".$url."';</script > ";
-					die();
+			    	$data = array(
+		        		'title' => $this->I('title'),
+		        		'classify' => $this->I('classify'),
+		        		'photourl' => $time,
+		        		'photoname' => $savePhotoName,
+		        		'audit' => $this->I('audit'),
+		        		'content' => strip_tags($this->I('content')),
+		        		'time' => date("Y-m-d H:i:s",time()),
+		        		);
+					
+					
+					if ($judge = $this->update('Article',$con,$data,$where,$judge['issetImg'])) {
+			        	$url = "../Admin/index.php?c=Article&f=source";
+						echo "<script language = 'javascript' type = 'text/javascript'>window.location.href = '".$url."';</script > ";
+						die();
+					}
+
+			  //       $url = "../Admin/index.php?c=Base&f=error&error=标题图上传失败!&from=Article";
+					// echo "<script language = 'javascript' type = 'text/javascript'>window.location.href = '".$url."';</script > ";
+					// die();
 			    }  
  			}else{
- 				
+ 				$where['id'] = $this->I('id','get');
 				$result = $this->select('Article',$con,$where);
-				// $this->update('Article',$con,$data,$where);
 				include dirname(dirname(__FILE__)).'\View\form.html';
  			}
 			
+		}
+
+		public function art_delete(){
+			$con = $this->db_mysql('internship_native');
+
+			if($this->I('submit') == '确定'){
+				$checkbox = $this->I('checkbox');
+				foreach ($checkbox as $v) {
+					//换一个思路世界更美好,而不是$where['id'][]
+					$where['manyCond']['id'][] = $v;
+				}
+				if ($judge = $this->delete('Article',$con,$where,$manyCond = array('id'))) {
+					$url = "../Admin/index.php?c=Article&f=source";
+					echo "<script language = 'javascript' type = 'text/javascript'>window.location.href = '".$url."';</script > ";
+					die();
+				}
+				
+			}else{
+				$where['id'] = $this->I('id','get');
+				if ($judge = $this->delete('Article',$con,$where)) {
+					$url = "../Admin/index.php?c=Article&f=source";
+					echo "<script language = 'javascript' type = 'text/javascript'>window.location.href = '".$url."';</script > ";
+					die();
+				}else{
+					$url = "../Admin/index.php?c=Base&f=error&error=访问错误!&from=Article";
+					echo "<script language = 'javascript' type = 'text/javascript'>window.location.href = '".$url."';</script > ";
+					die();
+				}
+			}
 		}
 	}
  ?>

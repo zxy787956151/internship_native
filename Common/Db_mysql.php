@@ -44,9 +44,62 @@
 			//直接返回result 不咋这里做mysql_fetch_array(),否则外面不能执行while!
 		}
 
-		public function update($table,$con,$data,$where){
+		public function update($table,$con,$data,$where,$issetImg){
 			//修改的条件不能为空
-			
+			$key = array_keys($data);
+			$condition = $key['0']."='".$data[$key['0']]."'";
+			//update 修改字段间隔是逗号不是and
+			for ($i=1; $i <count($data) ; $i++) { 
+				if($key[$i] == 'photourl' && $issetImg == '0'){
+					continue;
+				}else if($key[$i] == 'photoname' && $issetImg == '0'){
+					continue;
+				}
+
+				$condition .= ",".$key[$i]."='".$data[$key[$i]]."'";
+			}
+
+			$key = array_keys($where);
+			$w_condition = $key['0']."='".$where[$key['0']]."'";
+			for ($i=1; $i <count($where) ; $i++) { 
+				$w_condition .= " and ".$key[$i]."='".$where[$key[$i]]."'";
+			}
+			$sql = "UPDATE ".$table." set ".$condition." where ".$w_condition.";";
+			// var_dump($sql);
+			// die();
+			$result = mysql_query($sql);
+			return $result;
+		}
+
+		public function delete($table,$con,$where,$manyCond=null){
+			if ($manyCond) {
+				foreach ($manyCond as $mk => $mv) {
+					$condition = $mv."='".$where['manyCond']["$mv"]['0']."'";
+					foreach($where['manyCond'] as $wk => $wv){
+						if ($wk == $mv) {
+							foreach ($wv as $k => $v) {
+								if ($k == 0) {
+									continue;
+								}
+								$condition .= " or ".$mv."='".$v."'";
+							}
+						} 
+					}
+				}
+			}else{
+				$key = array_keys($where);
+				$condition = $key['0']."='".$where[$key['0']]."'";
+				for ($i=1; $i <count($where) ; $i++) { 
+					$condition .= " or ".$key[$i]."='".$where[$key[$i]]."'";
+				}
+			}
+			$sql = "DELETE FROM ".$table." where ".$condition.";";
+			// var_dump($sql);
+			// die();
+			$result = mysql_query($sql);
+			// var_dump($result);
+			// die();
+			return $result;
 		}
 	}
  ?>
