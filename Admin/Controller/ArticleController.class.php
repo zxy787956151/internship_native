@@ -2,6 +2,7 @@
 	include_once 'BaseController.class.php';
 	include '../Common/Db_mysql.php';
 	include '../Common/Db_mysqli.php';
+
 	class Article extends Base{
 		use Db_mysql;
 		use Db_mysqli;
@@ -77,7 +78,7 @@
 			        		'classify' => $this->I('classify'),
 			        		'photourl' => $time,
 			        		'photoname' => $savePhotoName,
-			        		'audit' => $this->I('audit'),
+			        		'recommend' => $this->I('recommend'),
 			        		'content' => strip_tags($this->I('content')),
 			        		'time' => date("Y-m-d H:i:s",time()),
 			        		);
@@ -155,7 +156,7 @@
 			        		'classify' => $this->I('classify'),
 			        		'photourl' => $time,
 			        		'photoname' => $savePhotoName,
-			        		'audit' => $this->I('audit'),
+			        		'recommend' => $this->I('recommend'),
 			        		'content' => strip_tags($this->I('content')),
 			        		'time' => date("Y-m-d H:i:s",time()),
 			        		);
@@ -177,7 +178,7 @@
 		        		'classify' => $this->I('classify'),
 		        		'photourl' => $time,
 		        		'photoname' => $savePhotoName,
-		        		'audit' => $this->I('audit'),
+		        		'recommend' => $this->I('recommend'),
 		        		'content' => strip_tags($this->I('content')),
 		        		'time' => date("Y-m-d H:i:s",time()),
 		        		);
@@ -227,6 +228,28 @@
 					echo "<script language = 'javascript' type = 'text/javascript'>window.location.href = '".$url."';</script > ";
 					die();
 				}
+			}
+		}
+
+		public function art_recommend(){
+			
+			$link  = $this->Db_mysqli('internship_native');
+			switch ($this->I('type','get')) {
+				case '0':
+					$recommend = 1;
+					break;
+				case '1':
+					$recommend = 0;
+					break;
+			}
+			$data = array(
+				'recommend' => $recommend,
+				);
+			$where['id'] = $this->I('id','get');
+			if($judge = $this->i_update('Article',$link,$data,$where)){
+				$url = "../Admin/index.php?c=Article&f=source";
+				echo "<script language = 'javascript' type = 'text/javascript'>window.location.href = '".$url."';</script > ";
+				die();
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 <?php 
 	include_once 'BaseController.class.php';
+	include '../Common/Db_mysqli.php';
 	//include_once耗内存
 	class Index extends Base{
 		public function source(){

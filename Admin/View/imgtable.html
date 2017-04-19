@@ -58,7 +58,7 @@ $(document).ready(function(){
     <div class="tools">
     
     	<ul class="toolbar">
-        <li><a href="/Admin/index.php?c=Article&f=add"><span><img src="<?php echo __PUBLIC__;?>/images/t01.png" /></span>添加</a></li>
+        <li><a href="/Admin/index.php?c=Article&f=art_add"><span><img src="<?php echo __PUBLIC__;?>/images/t01.png" /></span>添加</a></li>
         <!-- 想弹出确定框就加 class="click" -->
         <!-- <li class="click"><span><img src="<?php echo __PUBLIC__;?>/images/t02.png" /></span>修改</li> -->
         <li class='click'><span><img src="<?php echo __PUBLIC__;?>/images/t03.png" /></span>全部删除选中</li>
@@ -95,7 +95,7 @@ $(document).ready(function(){
             $i = 1;
             while ($row = mysqli_fetch_assoc($result)){
                 if($i>=$pageS && $i<=$pageE){
-                    $judge = ($row['audit']==1) ? '已审核' : '<i>未审核</i>';
+                    $judge = ($row['recommend']==1) ? "<a href='/Admin/index.php?c=Article&f=art_recommend&id=".$row['id']."&type=1' style='color: green'>已推荐</a>" : "<i><a href='/Admin/index.php?c=Article&f=art_recommend&id=".$row['id']."&type=0' style='color: red'>未推荐</a></i>";
                     echo "
                         <tr>
                         <td><input type='checkbox' name='checkbox[]' value='".$row['id']."'></td>

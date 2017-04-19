@@ -44,12 +44,16 @@
                             <option>日记</option>
                             <option>程序人生</option>
                             <option>经典语录</option>
+                            <option>个人博客模板</option>
+                            <option>网站建设</option>
+                            <option>心得笔记</option>
+                            <option>css3</option>
                         </select>
                     <i>多个关键字用,隔开</i></li>
 
                     <li><label>文章标题图</label><input name='myfile' type='file' class='dfinput' onchange='addProduct(this)' /><i>标题不能超过30个字符</i></li>
                     <li><img src='' id='image' /></li>
-                    <li><label>是否审核</label><cite><input name='audit' type='radio' value='1' checked='checked' />是&nbsp;&nbsp;&nbsp;&nbsp;<input name='audit' type='radio' value='0' />否</cite></li>
+                    <li><label>是否推荐</label><cite><input name='audit' type='radio' value='1' />是&nbsp;&nbsp;&nbsp;&nbsp;<input name='audit' type='radio' value='0' checked='checked' />否</cite></li>
                     <!-- <li><label>引用地址</label><input name=' type='text' class='dfinput' value='http://www.uimaker.com/uimakerhtml/uidesign/' /></li> -->
                     <li>
                         <label>文章内容</label>
@@ -83,13 +87,21 @@
                                             <option selected='selected'>日记</option>
                                             <option>程序人生</option>
                                             <option>经典语录</option>
+                                            <option>个人博客模板</option>
+                                            <option>网站建设</option>
+                                            <option>心得笔记</option>
+                                            <option>css3</option>
                                         ";
                                         break;
                                     case '程序人生':
                                         echo "
-                                            <option>日记</option>
+                                            <option >日记</option>
                                             <option selected='selected'>程序人生</option>
                                             <option>经典语录</option>
+                                            <option>个人博客模板</option>
+                                            <option>网站建设</option>
+                                            <option>心得笔记</option>
+                                            <option>css3</option>
                                         ";
                                         break;
                                     case '经典语录':
@@ -97,6 +109,57 @@
                                             <option>日记</option>
                                             <option>程序人生</option>
                                             <option selected='selected'>经典语录</option>
+                                            <option>个人博客模板</option>
+                                            <option>网站建设</option>
+                                            <option>心得笔记</option>
+                                            <option>css3</option>
+                                        ";
+                                        break;
+                                    case '个人博客模板':
+                                        echo "
+                                            <option>日记</option>
+                                            <option>程序人生</option>
+                                            <option>经典语录</option>
+                                            <option selected='selected'>个人博客模板</option>
+                                            <option>网站建设</option>
+                                            <option>心得笔记</option>
+                                            <option>css3</option>
+                                        ";
+                                        break;
+
+                                    case '网站建设':
+                                        echo "
+                                            <option>日记</option>
+                                            <option>程序人生</option>
+                                            <option>经典语录</option>
+                                            <option>个人博客模板</option>
+                                            <option selected='selected'>网站建设</option>
+                                            <option>心得笔记</option>
+                                            <option>css3</option>
+                                        ";
+                                        break;
+
+                                    case '心得笔记':
+                                        echo "
+                                            <option>日记</option>
+                                            <option>程序人生</option>
+                                            <option>经典语录</option>
+                                            <option>个人博客模板</option>
+                                            <option>网站建设</option>
+                                            <option selected='selected'>心得笔记</option>
+                                            <option>css3</option>
+                                        ";
+                                        break;
+
+                                    case 'css3':
+                                        echo "
+                                            <option>日记</option>
+                                            <option>程序人生</option>
+                                            <option>经典语录</option>
+                                            <option>个人博客模板</option>
+                                            <option>网站建设</option>
+                                            <option>心得笔记</option>
+                                            <option selected='selected'>css3</option>
                                         ";
                                         break;
                                 }

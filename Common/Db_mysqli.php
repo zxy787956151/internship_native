@@ -1,4 +1,8 @@
 <?php 
+	/**
+	mysqli还有面向对象用法,项目里没写,详情见:
+	http://m.blog.csdn.net/article/details?id=51286052
+	 */
 	trait Db_mysqli{
 		public function db_mysqli($dbname){
 				$db = array(
@@ -103,6 +107,40 @@
 				$result  = mysqli_query($link,$sql);
 				return $result;
 				//就不返回结果集条数了!				
+			}
+
+			public function i_update($table,$link,$data,$where,$issetImg=0){
+
+				$key = array_keys($data);
+				$condition = $key['0']."='".$data[$key['0']]."'";
+				//update 修改字段间隔是逗号不是and
+				for ($i=1; $i <count($data) ; $i++) { 
+					if($key[$i] == 'photourl' && $issetImg == '0'){
+						continue;
+					}else if($key[$i] == 'photoname' && $issetImg == '0'){
+						continue;
+					}
+
+					$condition .= ",".$key[$i]."='".$data[$key[$i]]."'";
+				}
+
+				$key = array_keys($where);
+				$w_condition = $key['0']."='".$where[$key['0']]."'";
+				for ($i=1; $i <count($where) ; $i++) { 
+					$w_condition .= " and ".$key[$i]."='".$where[$key[$i]]."'";
+				}
+				$sql = "UPDATE ".$table." set ".$condition." where ".$w_condition.";";
+				
+				mysqli_query($link,$sql);
+
+				$affected_rows = mysqli_affected_rows($link);
+
+				$result = $affected_rows==-1 ? 0 : 1;
+				return $result;
+			}
+
+			public function i_delete(){
+				var_dump('差个删除!');
 			}
 	}
 		
