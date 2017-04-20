@@ -9,4 +9,5 @@ com17-4-12 afternoon also1BigBug ArticleSourcePageCoding!
 com17-4-12 night NoBug!! Admin/ArticlePageJs&PageCheckAll Unwritten
 com17-4-17 com Article/updateCoding also 1 Unwritten
 com17-4-18 Admin/ArticleCURDok Unwritten ≤ª–¥¡À Mysql/article audit update commend no dispose
-com17-4-19 Conding Home/index/artcle(use Common Db_pdo.php<---coding)																													
+com17-4-19 Conding Home/index/artcle(use Common Db_pdo.php<---coding)							
+com17-4-20 Conding Home/index NewArticle RecommendArticle and so on.. 																						

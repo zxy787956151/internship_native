@@ -28,6 +28,14 @@
 			}
 		}
 
+		public function dealwith_art($string,$len,$tail){
+		    if(mb_strlen($string)>$len){  
+	            $tmp = mb_substr($string,0,$len,'utf8');  
+	            return $tmp.$tail;  
+	        }else{  
+	            return $arg;  
+	        }  
+		}
 		
 	}
  ?>
