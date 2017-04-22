@@ -2,10 +2,12 @@
 	include_once 'BaseController.class.php';
 	include '../Common/Db_mysql.php';
 	include '../Common/Db_mysqli.php';
+	include '../Common/Db_pdo.php';
 
 	class Article extends Base{
 		use Db_mysql;
 		use Db_mysqli;
+		use Db_pdo;
 		public function source(){
 			$base = new Base();
 			$base->source();
@@ -100,6 +102,8 @@
 					die();
 			    }  
 			}else{
+				$pdo = $this->db_pdo('internship_native');
+				$module = $this->p_select('Module',$pdo);
 				include dirname(dirname(__FILE__)).'\View\form.html';
 			}
 		}

@@ -16,8 +16,15 @@
 			$pdo = $this->db_pdo('internship_native');
 			$where['recommend'] = 1;
 			$recommend = $this->p_select('Article',$pdo,$where);
-			// $this->test($recommend);
-			
+
+			//最新文章
+			$Field = array('id','title');
+			$LatestArt = $this->p_select('Article',$pdo,null,$Field,'id','desc',8);
+
+			//推荐文章
+			$Field = array('browse','id','title');
+			$RecArt = $this->p_select('Article',$pdo,null,$Field,null,null,8);
+			arsort($RecArt);
 			include dirname(dirname(__FILE__)).'\View\index.html';
 		}
 

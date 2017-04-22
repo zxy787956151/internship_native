@@ -6,6 +6,7 @@
 		public function source(){
 			$base = new Base();
 			$pdo = $this->db_pdo('internship_native');
+			
 			$article = $this->p_select('Article',$pdo);
 			$pageNum = ceil(count($article)/9);
 			$page = $this->I('pid','get');
@@ -20,7 +21,6 @@
 				$pageS = 1;
 				$pageE = 9;
 			}
-
 			include dirname(dirname(__FILE__)).'\View\newlist.html';
 		}
 

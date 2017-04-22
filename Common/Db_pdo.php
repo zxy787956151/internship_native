@@ -26,16 +26,33 @@
 			return $pdo;
 		}
 
-		public function p_select($table,$pdo,$where=null){
+		public function p_select($table,$pdo,$where=null,$Field=null,$orderField=null,$orderType=null,$limit=null){
 			if (isset($where)) {
 				$key = array_keys($where);
 				$condition = $key['0']."='".$where[$key['0']]."'";
 				for ($i=1; $i <count($where) ; $i++) { 
 					$condition .= " and ".$key['0']."='".$where[$key['0']]."'";
 				}
-				$sql = "SELECT * FROM ".$table." where(".$condition.");";
+				$sql = "SELECT * FROM ".$table." where(".$condition.")";
 			}else{
-				$sql = "SELECT * FROM ".$table.";";
+				$sql = "SELECT * FROM ".$table."";
+			}
+
+			if (isset($orderType)) {
+				$sql .= ' order by '.$orderField.' '.$orderType;
+			}
+
+			//注意但单独查询一个字段时,返回的二维数组第二个键名是$Field
+			if (isset($Field)) {
+				$field = $Field['0'];
+				for ($i=1; $i <count($Field) ; $i++) { 
+					$field .= ','.$Field["$i"];
+				}
+				$sql = str_replace('*',$field,$sql);
+			}
+
+			if (isset($limit)) {
+				$sql .= ' limit 0,'.$limit;
 			}
 
 			$stmt = $pdo->prepare($sql);

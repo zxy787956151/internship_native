@@ -40,14 +40,13 @@
                     <ul class='forminfo'>
                     <li><label>文章标题</label><input name='title' type='text' class='dfinput' /><i>标题不能超过30个字符</i></li>
                     <li><label>分类</label>
-                        <select class='dfinput' name='classify'>
-                            <option>日记</option>
-                            <option>程序人生</option>
-                            <option>经典语录</option>
-                            <option>个人博客模板</option>
-                            <option>网站建设</option>
-                            <option>心得笔记</option>
-                            <option>css3</option>
+                        <select class='dfinput' name='classify'>";
+                foreach($module as $k => $v){
+                    echo "
+                        <option>".$v['title']."</option>
+                    ";
+                }            
+                echo "        
                         </select>
                     <i>多个关键字用,隔开</i></li>
 
