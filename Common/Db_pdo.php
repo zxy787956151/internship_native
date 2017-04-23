@@ -55,6 +55,8 @@
 				$sql .= ' limit 0,'.$limit;
 			}
 
+			// var_dump($sql.'<br/>');
+
 			$stmt = $pdo->prepare($sql);
 			// $stmt->bindValue(1,'test');
 			// $stmt->bindValue(2,22);

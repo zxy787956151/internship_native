@@ -27,6 +27,14 @@ $(document).ready(function(){
 });
 </script>
 
+<style type="text/css">
+    .green{
+        color: green;
+    }
+    .red{
+        color:red;
+    }
+</style>
 
 </head>
 
@@ -66,8 +74,7 @@ $(document).ready(function(){
     	<tr>
         <th><input name="" type="checkbox" value="" checked="checked"/></th>
         <th>编号<i class="sort"><img src="<?php echo __PUBLIC__;?>/images/px.gif" /></i></th>
-        <th>排序</th>
-        <th>首页显示(最多4项)</th>
+        <th>名称</th>
         <th>操作</th>
         </tr>
         </thead>
@@ -78,9 +85,9 @@ $(document).ready(function(){
                 echo "
                     <tr>
                     <td><input name='' type='checkbox' value='' /></td>
-                    <td>".$v['sort']."</td>
-                    <td>".$v['title']."</td>
-                    <td>".$v['Visible']."</td>
+                    <td>".($k+1)."</td>
+                    <td>".$v['title']."</td>";
+                echo "        
                     <td><a href='#' class='tablelink'>编辑</a>     <a href='#' class='tablelink'> 删除</a></td>
                     </tr> 
                 ";

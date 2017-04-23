@@ -1,9 +1,9 @@
 <?php 
-  
   include '../Common/Common.php';
-	
+  include '../Common/Db_pdo.php';
   class Base{
 		use Common;
+    use Db_pdo;
     //这里不要Config只要Common 因为Config里失手写的都是Admin的参数
     public function base(){
 			header("Content-type: text/html; charset=utf-8"); 
@@ -14,6 +14,7 @@
   			@define('__VIEW__','/Home/View');
   			@define('__Controller__','/Home/Controller');
         @define('__IMAGE__','/Admin/Public/Upload');
-		}
+        //处理公共主键header.html
+    }
 	}
  ?>
