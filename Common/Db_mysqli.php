@@ -139,8 +139,33 @@
 				return $result;
 			}
 
-			public function i_delete(){
-				var_dump('差个删除!');
+			public function i_delete($table,$where,$link,$manyCond=null){
+				if ($manyCond) {
+					foreach ($manyCond as $mk => $mv) {
+						$condition = $mv."='".$where['manyCond']["$mv"]['0']."'";
+						foreach($where['manyCond'] as $wk => $wv){
+							if ($wk == $mv) {
+								foreach ($wv as $k => $v) {
+									if ($k == 0) {
+										continue;
+									}
+									$condition .= " or ".$mv."='".$v."'";
+								}
+							} 
+						}
+					}
+				}else{
+					$key = array_keys($where);
+					$condition = $key['0']."='".$where[$key['0']]."'";
+					for ($i=1; $i <count($where) ; $i++) { 
+						$condition .= " or ".$key[$i]."='".$where[$key[$i]]."'";
+					}
+				}
+				
+				$sql = "DELETE FROM ".$table." where ".$condition.";";
+				mysqli_query($link, sprintf($sql));
+				$affected_rows = mysqli_affected_rows($link);
+				return $affected_rows;
 			}
 	}
 		

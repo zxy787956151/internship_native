@@ -96,5 +96,22 @@
 			}
 			return 0;
 		}
+
+		public function p_add($table,$pdo,$data){
+			$key = array_keys($data);
+				$sql_k = $key['0'];
+				$sql_v = "'".$data[$key['0']]."'";
+				for ($i=1; $i <count($data) ; $i++) { 
+					$sql_k .=",".$key["$i"];
+					$sql_v .=",'".$data[$key["$i"]]."'";			
+				}
+			$insert_sql = "INSERT INTO ".$table."(".$sql_k.")values(".$sql_v.")";
+			$stmt = $pdo->prepare($insert_sql);
+			$stmt->execute();
+			if ($stmt) {
+				return 1;
+			}
+			return 0;
+		}
 	}
  ?>

@@ -53,9 +53,11 @@ $(document).ready(function(){
     <div class="rightinfo">
     
     <div class="tools">
-    
+        <!-- 这是全部删除的form -->
+        <form action="/Admin/index.php?c=Module&f=m_delete" method="post">
+        
     	<ul class="toolbar">
-        <li class="click"><span><img src="<?php echo __PUBLIC__;?>/images/t01.png" /></span>添加</li>
+        <li><a href="/Admin/index.php?c=Module&f=m_add"><span><img src="<?php echo __PUBLIC__;?>/images/t01.png" /></span>添加</a></li>
         <!-- <li class="click"><span><img src="<?php echo __PUBLIC__;?>/images/t02.png" /></span>修改</li> -->
         <li class="click"><span><img src="<?php echo __PUBLIC__;?>/images/t03.png" /></span>全部删除</li>
         <li><span><img src="<?php echo __PUBLIC__;?>/images/t04.png" /></span>统计</li>
@@ -72,7 +74,7 @@ $(document).ready(function(){
     <table class="tablelist">
     	<thead>
     	<tr>
-        <th><input name="" type="checkbox" value="" checked="checked"/></th>
+        <th><input name="checkbox" type="checkbox" value="" checked="checked"/></th>
         <th>编号<i class="sort"><img src="<?php echo __PUBLIC__;?>/images/px.gif" /></i></th>
         <th>名称</th>
         <th>操作</th>
@@ -81,14 +83,14 @@ $(document).ready(function(){
 
         <tbody>
         <?php
-            foreach($module as $k => $v){
+            foreach($show as $k => $v){
                 echo "
                     <tr>
-                    <td><input name='' type='checkbox' value='' /></td>
+                    <td><input name='checkbox[]' type='checkbox' value='".$v['id']."' /></td>
                     <td>".($k+1)."</td>
                     <td>".$v['title']."</td>";
                 echo "        
-                    <td><a href='#' class='tablelink'>编辑</a>     <a href='#' class='tablelink'> 删除</a></td>
+                    <td><!-- <a href='/Admin/index.php?c=Module&f=m_update&type=update&id=".$v['id']."' class='tablelink'>编辑</a> -->     <a href='/Admin/index.php?c=Module&f=m_delete&id=".$v['id']."' class='tablelink'> 删除</a></td>
                     </tr> 
                 ";
             }
@@ -121,14 +123,17 @@ $(document).ready(function(){
       <div class="tipinfo">
         <span><img src="<?php echo __PUBLIC__;?>/images/ticon.png" /></span>
         <div class="tipright">
-        <p>是否确认对信息的修改 ？</p>
+        <p>是否确认对所选多项全部删除 ？</p>
         <cite>如果是请点击确定按钮 ，否则请点取消。</cite>
         </div>
         </div>
         
         <div class="tipbtn">
-        <input name="" type="button"  class="sure" value="确定" />&nbsp;
+            <input type="hidden" name="type" value="all"/>
+            <input name="submit" type="submit"  class="sure" value="确定" />&nbsp;
+        
         <input name="" type="button"  class="cancel" value="取消" />
+        </form>
         </div>
     
     </div>
