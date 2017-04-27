@@ -14,6 +14,8 @@
 			$pdo = $this->db_pdo('internship_native');
 			$module = $this->p_select('Module',$pdo);
 			$module = $this->DFS($module);
+			//DFS函数未写好 有bug 因此 BUG 取消添加顶级分类功能
+			$module = $this->DFS($module,1);
 			//再把压缩好的数组打开! 闲的
 			$show = $this->showDfs($module);
 			include dirname(dirname(__FILE__)).'\View\right.html';
@@ -43,6 +45,7 @@
 
 			$module = $this->p_select('Module',$pdo);
 			$module = $this->DFS($module);
+			$module = $this->DFS($module,1);
 			$show = $this->showDfs($module);
 			include dirname(dirname(__FILE__)).'\View\moduleFrom.html';
 		}
@@ -67,6 +70,11 @@
 					die();
 				}
 			}else{
+				$pdo = $this->db_pdo('internship_native');
+				//先确认删掉相关联文章再删除
+				$artWhere['classify'] = $this->I('id','get');
+				$judge = $this->p_delete('Article',$artWhere,$pdo);
+				
 				if ($judge = $this->i_delete('Module',$where,$link)) {
 					$url = "../Admin/index.php?c=Module&f=source";
 					echo "<script language = 'javascript' type = 'text/javascript'>window.location.href = '".$url."';</script > ";

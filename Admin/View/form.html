@@ -41,9 +41,9 @@
                     <li><label>文章标题</label><input name='title' type='text' class='dfinput' /><i>标题不能超过30个字符</i></li>
                     <li><label>分类</label>
                         <select class='dfinput' name='classify'>";
-                foreach($module as $k => $v){
+                foreach($show as $k => $v){
                     echo "
-                        <option>".$v['title']."</option>
+                        <option value='".$v['id']."'>".$v['title']."</option>
                     ";
                 }            
                 echo "        

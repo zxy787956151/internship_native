@@ -93,7 +93,7 @@ $(document).ready(function(){
         <!-- $i：分页计数 -->
         <?php 
             $i = 1;
-            while ($row = mysqli_fetch_assoc($result)){
+            foreach($result as $row) {
                 if($i>=$pageS && $i<=$pageE){
                     $judge = ($row['recommend']==1) ? "<a href='/Admin/index.php?c=Article&f=art_recommend&id=".$row['id']."&type=1' style='color: green'>已推荐</a>" : "<i><a href='/Admin/index.php?c=Article&f=art_recommend&id=".$row['id']."&type=0' style='color: red'>未推荐</a></i>";
                     echo "
@@ -101,7 +101,7 @@ $(document).ready(function(){
                         <td><input type='checkbox' name='checkbox[]' value='".$row['id']."'></td>
                         <td class='imgtd'><img src='".__IMAGE__."/".$row['photourl']."/".$row['photoname']."' class='artImg' /></td>
                         <td><a href='#'>".$row['title']."</a><p>发布时间：".$row['time']."</p></td>
-                        <td>".$row['classify']."<p>ID: ".$row['id']."</p></td>
+                        <td>".$row['classify']['title']."<p>ID: ".$row['id']."</p></td>
                         <td>开放浏览</td>
                         <td>zxy</td>
                         <td>".$judge."</td>

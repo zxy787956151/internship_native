@@ -3,17 +3,26 @@
 	include '../Common/Db_mysql.php';
 	include '../Common/Db_mysqli.php';
 	include '../Common/Db_pdo.php';
-
+	include '/Model/ModuleModel.class.php';
 	class Article extends Base{
 		use Db_mysql;
 		use Db_mysqli;
 		use Db_pdo;
+		use ModuleModel;
 		public function source(){
 			$base = new Base();
 			$base->source();
 			$link = $this->db_mysqli('internship_native');
-			$result = $this->i_select('Article',$link);
-			$num_rows = mysqli_num_rows ($result);
+			$pdo = $this->db_pdo('internship_native');
+			//more_to_one
+			$config = array(
+				'TABLE1' => 'Article',
+				'TABLE2' => 'Module',
+				'MORE_ID' => 'classify',
+				);
+			$result = $this->mToo($config,$pdo);
+			// $result = $this->i_select('Article',$link);
+			$num_rows = count($result);
 			//ceil向上取整
 			$pageNum = ceil($num_rows/4);
 			$page = $this->I('pid','get');
@@ -32,9 +41,15 @@
 		}
 
 		public function Art_add(){
+			//为模板添加样式!
 			$base = new Base();
 			$base->source();
-			//为模板添加样式!
+
+			$pdo = $this->db_pdo('internship_native');
+			$module = $this->p_select('Module',$pdo);
+			$module = $this->DFS($module);
+			$module = $this->DFS($module,1);
+			$show = $this->showDfs($module);
 
 			if ($this->I('submit') == '确认保存') {
 				$title = $this->I('title');

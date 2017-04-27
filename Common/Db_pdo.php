@@ -113,5 +113,40 @@
 			}
 			return 0;
 		}
+
+		//暂不支持多条件删除
+		public function p_delete($table,$where,$pdo){
+			$key = array_keys($where);
+			$condition = $key['0']."='".$where[$key['0']]."'";
+			for ($i=1; $i <count($where) ; $i++) { 
+				$condition .= " or ".$key[$i]."='".$where[$key[$i]]."'";
+			}
+			$sql = "DELETE FROM ".$table." where ".$condition;
+			$count  =  $pdo->exec($sql);
+			return $count;
+		}
+
+		//多对一查询
+		/**
+		 配置文件格式:
+		 */
+		public function mToo($config,$pdo){
+			$sql = "SELECT * FROM ".$config['TABLE1'].";";
+			$stmt = $pdo->prepare($sql);
+			$stmt->execute();  
+			$rows = $stmt->fetchAll();
+			$key = $config['MORE_ID'];
+			foreach ($rows as $k => $v) {
+				$sql2 = "SELECT * FROM ".$config['TABLE2']." where id=".$v["$key"].";";
+				$stmt2 = $pdo->prepare($sql2);
+				$stmt2->execute();  
+				$rows2 = $stmt2->fetchAll();
+				foreach ($rows2 as $v2) {
+					$rows["$k"]["$key"] = $v2;
+				}
+			}
+			
+			return $rows;
+		}
 	}
  ?>
